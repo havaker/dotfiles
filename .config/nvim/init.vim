@@ -172,10 +172,16 @@ nmap <leader>d <Plug>(lcn-definition)
 nmap <leader>r <Plug>(lcn-references)
 " Launch gopls when Go files are in use
 let g:LanguageClient_serverCommands = {
-       \ 'go': ['gopls']
+       \ 'go': ['gopls'],
+       \ 'rust': ['rust-analyzer-linux'],
+       \ 'python': ['pyls'],
+       \ 'cpp': ['ccls'],
+       \ 'c': ['ccls'],
        \ }
 " Run gofmt on save when Go files are in use
 autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+" Run rustfmt on save when Rust files are in use
+autocmd BufWritePre *.rs :call LanguageClient#textDocument_formatting_sync()
 
 " deoplete settings
 let g:deoplete#enable_at_startup = 1
