@@ -93,7 +93,7 @@ set ttimeoutlen=10
 cmap w!! w !sudo tee % >/dev/null
 
 " Remove trailing whitespace on file save
-autocmd BufWritePre * :%s/\s\+$//e
+" autocmd BufWritePre * :%s/\s\+$//e
 
 " Don't mess up html files
 let html_no_rendering=1
@@ -149,6 +149,7 @@ Plug 'editorconfig/editorconfig-vim'
 
 Plug 'fatih/vim-go'
 Plug 'blankname/vim-fish'
+Plug 'uarun/vim-protobuf'
 
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
