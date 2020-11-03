@@ -37,6 +37,8 @@ set breakindent
 set breakindentopt=shift:2,min:40,sbr
 " append '>>' to indent
 set showbreak=>>
+" don't cut words
+set linebreak
 
 " ignore case if search pattern is all lowercase, case-sensitive otherwise
 set ignorecase " vim require it to be set before smartcase has any effect
@@ -150,6 +152,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'fatih/vim-go'
 Plug 'blankname/vim-fish'
 Plug 'uarun/vim-protobuf'
+Plug 'gabrielelana/vim-markdown'
 
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -202,9 +205,21 @@ set laststatus=2
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeMapOpenSplit = 's'
 let NERDTreeMapOpenVSplit = 'v'
+let NERDTreeShowLineNumbers=1
+autocmd FileType nerdtree setlocal relativenumber
 
 " ctrlp settings
-let g:ctrlp_working_path_mode = 0
+let g:ctrlp_working_path_mode = 'r'
+nnoremap <leader>p :call CtrlpPathToogle()<CR>
+" map <leader>p :call CtrlpPathToogle()<CR>
+function! CtrlpPathToogle()
+    if g:ctrlp_working_path_mode == 'c'
+        let g:ctrlp_working_path_mode = 'r'
+    else
+        let g:ctrlp_working_path_mode = 'c'
+    endif
+endfunction
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/third_party/*
 
 " vim-colorschemes settings
 colorscheme oxeded
