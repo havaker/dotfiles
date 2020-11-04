@@ -27,8 +27,10 @@ set shiftround
 set tabstop=4
 set shiftwidth=4
 
-" don't wrap lines
+" don't wrap lines by default
 set nowrap
+" line wrap toggle
+nnoremap <leader>w :set wrap!<CR>
 " https://stackoverflow.com/questions/1204149/smart-wrap-in-vim
 " enable indentation
 set breakindent
@@ -46,7 +48,7 @@ set smartcase
 
 " show line numbers
 set number relativenumber
-" toogle relative line numbers type by <leader>n
+" toggle relative line numbers type by <leader>n
 nnoremap <leader>n :set relativenumber!<CR>
 
 " highlight current line
@@ -95,7 +97,7 @@ set ttimeoutlen=10
 cmap w!! w !sudo tee % >/dev/null
 
 " Remove trailing whitespace on file save
-" autocmd BufWritePre * :%s/\s\+$//e
+autocmd BufWritePre * :%s/\s\+$//e
 
 " Don't mess up html files
 let html_no_rendering=1
@@ -131,6 +133,9 @@ map <C-v> "+P
 " try to show as much as possible of the last line in the window (rather than
 " a column of "@", which is the default behavior)
 set display+=lastline
+
+" spellcheck toggle
+nmap <leader>c :setlocal spell! spelllang=en_us,pl<CR>
 
 if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim"'))
 	echo "Downloading junegunn/vim-plug to manage plugins..."
@@ -210,9 +215,9 @@ autocmd FileType nerdtree setlocal relativenumber
 
 " ctrlp settings
 let g:ctrlp_working_path_mode = 'r'
-nnoremap <leader>p :call CtrlpPathToogle()<CR>
-" map <leader>p :call CtrlpPathToogle()<CR>
-function! CtrlpPathToogle()
+nnoremap <leader>p :call CtrlpPathToggle()<CR>
+" map <leader>p :call CtrlpPathToggle()<CR>
+function! CtrlpPathToggle()
     if g:ctrlp_working_path_mode == 'c'
         let g:ctrlp_working_path_mode = 'r'
     else
