@@ -96,13 +96,13 @@ set ttimeoutlen=10
 " w!! saves the file with sudo
 cmap w!! w !sudo tee % >/dev/null
 
-" Remove trailing whitespace on file save
+" remove trailing whitespace on file save
 autocmd BufWritePre * :%s/\s\+$//e
 
-" Don't mess up html files
+" don't mess up html files
 let html_no_rendering=1
 
-" Open new panes on the right and below
+" open new panes on the right and below
 set splitbelow
 set splitright
 
@@ -175,11 +175,14 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 call plug#end()
 filetype plugin indent on
 
-" Language client useful mappings
+" LanguageClient useful mappings
 nmap <leader>m <Plug>(lcn-menu)
 nmap <leader>d <Plug>(lcn-definition)
 nmap <leader>r <Plug>(lcn-references)
-" Launch gopls when Go files are in use
+nmap <leader>h <Plug>(lcn-highlight)
+nmap <leader>i <Plug>(lcn-implementation)
+nmap <leader>e <Plug>(lcn-explain-error)
+" launch appropriate servers
 let g:LanguageClient_serverCommands = {
        \ 'go': ['gopls'],
        \ 'rust': ['rust-analyzer-linux'],
@@ -187,13 +190,14 @@ let g:LanguageClient_serverCommands = {
        \ 'cpp': ['ccls'],
        \ 'c': ['ccls'],
        \ }
-" Run gofmt on save when Go files are in use
+" run gofmt on save when Go files are in use
 autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
-" Run rustfmt on save when Rust files are in use
+" run rustfmt on save when Rust files are in use
 autocmd BufWritePre *.rs :call LanguageClient#textDocument_formatting_sync()
 
 " deoplete settings
 let g:deoplete#enable_at_startup = 1
+" be like ycm
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Airline settings
@@ -224,7 +228,7 @@ function! CtrlpPathToggle()
         let g:ctrlp_working_path_mode = 'c'
     endif
 endfunction
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/third_party/*
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/third_party/*,*/target/*
 
 " vim-colorschemes settings
 colorscheme oxeded
