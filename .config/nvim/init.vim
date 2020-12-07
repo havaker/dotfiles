@@ -15,7 +15,7 @@ set hidden
 syntax enable
 
 " keep the cursor in the middle of the screen
-set scrolloff=15
+" set scrolloff=15
 
 " expand tabs to spaces
 set expandtab
@@ -57,8 +57,8 @@ set cursorline
 set hlsearch
 " show search matches during typing
 set incsearch
-" map <leader>s to clear search pattern
-nnoremap <leader>s :let @/ = ""<CR>
+" map <leader>c to clear search pattern and close all location lost or quic fix windows
+nnoremap <leader>c :let @/ = ""<CR> :windo lcl\|ccl\|pc<CR>
 
 " change terminal title
 set title
@@ -88,7 +88,7 @@ nnoremap <leader>p :set paste!<CR>
 " show that there are more characters in a long line
 set nolist
 set listchars=extends:#,precedes:#,tab:▸\ ,eol:¬
-nmap <leader>l :set list!<CR>
+nmap <leader>L :set list!<CR>
 
 " delay in entering normal mode after pressing ESC
 set ttimeoutlen=10
@@ -135,7 +135,7 @@ map <C-v> "+P
 set display+=lastline
 
 " spellcheck toggle
-nmap <leader>c :setlocal spell! spelllang=en_us,pl<CR>
+nmap <leader>s :setlocal spell! spelllang=en_us,pl<CR>
 
 if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim"'))
 	echo "Downloading junegunn/vim-plug to manage plugins..."
@@ -178,7 +178,13 @@ filetype plugin indent on
 " LanguageClient useful mappings
 nmap <leader>m <Plug>(lcn-menu)
 nmap <leader>d <Plug>(lcn-definition)
+nmap gd <Plug>(lcn-definition)
+nmap gsd :split <CR> <Plug>(lcn-definition)
+nmap gvd :vsplit <CR> <Plug>(lcn-definition)
 nmap <leader>r <Plug>(lcn-references)
+nmap gr <Plug>(lcn-references)
+nmap gsr :split <CR> <Plug>(lcn-references)
+nmap gvr :vsplit <CR> <Plug>(lcn-references)
 nmap <leader>h <Plug>(lcn-highlight)
 nmap <leader>i <Plug>(lcn-implementation)
 nmap <leader>e <Plug>(lcn-explain-error)
@@ -191,7 +197,7 @@ let g:LanguageClient_serverCommands = {
        \ 'c': ['ccls'],
        \ }
 " run gofmt on save when Go files are in use
-autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+"autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
 " run rustfmt on save when Rust files are in use
 autocmd BufWritePre *.rs :call LanguageClient#textDocument_formatting_sync()
 
@@ -212,6 +218,7 @@ set laststatus=2
 
 " NERDTree settings
 map <C-n> :NERDTreeToggle<CR>
+map <C-f> :NERDTreeFind<CR>
 let NERDTreeMapOpenSplit = 's'
 let NERDTreeMapOpenVSplit = 'v'
 let NERDTreeShowLineNumbers=1
