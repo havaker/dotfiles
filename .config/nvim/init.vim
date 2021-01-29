@@ -158,6 +158,7 @@ Plug 'fatih/vim-go'
 Plug 'blankname/vim-fish'
 Plug 'uarun/vim-protobuf'
 Plug 'gabrielelana/vim-markdown'
+Plug 'tikhomirov/vim-glsl'
 
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -177,6 +178,7 @@ filetype plugin indent on
 
 " LanguageClient useful mappings
 nmap <leader>m <Plug>(lcn-menu)
+nmap gm <Plug>(lcn-menu)
 nmap <leader>d <Plug>(lcn-definition)
 nmap gd <Plug>(lcn-definition)
 nmap gsd :split <CR> <Plug>(lcn-definition)
@@ -187,6 +189,7 @@ nmap gsr :split <CR> <Plug>(lcn-references)
 nmap gvr :vsplit <CR> <Plug>(lcn-references)
 nmap <leader>h <Plug>(lcn-highlight)
 nmap <leader>i <Plug>(lcn-implementation)
+nmap gi <Plug>(lcn-implementation)
 nmap <leader>e <Plug>(lcn-explain-error)
 " launch appropriate servers
 let g:LanguageClient_serverCommands = {
